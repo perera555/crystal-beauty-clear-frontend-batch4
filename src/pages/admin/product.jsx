@@ -3,13 +3,15 @@ import { useEffect, useState } from "react"
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { GrEdit } from "react-icons/gr";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Loaded from "../../components/loaded";
 
 export default function AdminProductsPage() {
 
     const [products, setProducts] = useState([])
     const [loaded, setLoaded] = useState(false)
+    const navigate =useNavigate()
 
     useEffect(
         () => {
@@ -18,7 +20,7 @@ export default function AdminProductsPage() {
                     (response) => {
                         console.log(response.data)
                         setProducts(response.data)
-                        setLoaded(true)
+                       setLoaded(true)
                     }
                 )
             }
@@ -55,7 +57,7 @@ export default function AdminProductsPage() {
             bottom-5 ">
                 <FaPlus />
             </Link>
-            <table className="w-full ">
+           {loaded&& <table className="w-full ">
                 <thead>
                     <tr>
                         <th className="p-2 ">Product ID</th>
@@ -85,7 +87,13 @@ export default function AdminProductsPage() {
                                                 <FaRegTrashAlt onClick={() => {
                                                     deleteProduct(product.productId)
                                                 }} className="text-[22px] m-[10px] hover:text-red-600" />
-                                                <GrEdit className="text-[22px] m-[10px] hover:text-blue-500" />
+                                                <GrEdit onClick={()=>{
+                                                navigate("/admin/editProduct",{
+                                                    state:product
+                                                })
+
+
+                                                }}className="text-[22px] m-[10px] hover:text-blue-500" />
 
                                             </div>
                                         </td>
@@ -98,8 +106,11 @@ export default function AdminProductsPage() {
                         )
                     }
                 </tbody>
-            </table>
-
+            </table>}
+            {
+                !loaded&&
+                <Loaded/>
+            }
         </div>
 
     )

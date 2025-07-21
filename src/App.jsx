@@ -3,6 +3,7 @@ import LoginPage from "./pages/loginPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Testing from "./pages/admin/testing";
+import RegisterPage from "./pages/admin/client/register";
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
    <Route path="/admin/*" element={<AdminPage/>}/>
    <Route path="/login" element={<LoginPage/>}/>
    <Route path="/testing" element={<Testing/>}/>
+   <Route path="/register" element={<RegisterPage/>}/>
    <Route path="/"      element={<h1>Home</h1>}/>
    <Route path="/*"      element={<h1>404 Not found</h1>}/>
    </Routes>
