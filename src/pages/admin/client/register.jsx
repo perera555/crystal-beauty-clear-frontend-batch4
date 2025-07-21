@@ -35,7 +35,7 @@ export default function RegisterPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
-        role: "Customer",
+        role: "user",
         password: formData.password,
       })
       .then((response) => {
@@ -77,14 +77,7 @@ export default function RegisterPage() {
             placeholder="Last Name"
             className="w-[400px] h-[50px] border border-white rounded-xl text-center m-[5px]"
           />
-          <input
-            onChange={handleChange}
-            name="role"
-            type="text"
-            placeholder="Role"
-            className="w-[400px] h-[50px] border border-white rounded-xl text-center m-[5px]"
-          />
-        
+
           <input
             onChange={handleChange}
             name="phone"
@@ -92,7 +85,7 @@ export default function RegisterPage() {
             placeholder="Phone"
             className="w-[400px] h-[50px] border border-white rounded-xl text-center m-[5px]"
           />
-          
+
           <input
             onChange={handleChange}
             name="password"
