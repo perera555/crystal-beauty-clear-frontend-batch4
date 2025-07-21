@@ -77,13 +77,14 @@ export default function RegisterPage() {
             placeholder="Last Name"
             className="w-[400px] h-[50px] border border-white rounded-xl text-center m-[5px]"
           />
-           <input
+          <input
             onChange={handleChange}
             name="role"
             type="text"
             placeholder="Role"
             className="w-[400px] h-[50px] border border-white rounded-xl text-center m-[5px]"
           />
+        
           <input
             onChange={handleChange}
             name="phone"
