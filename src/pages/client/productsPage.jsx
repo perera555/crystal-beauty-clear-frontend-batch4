@@ -1,8 +1,5 @@
-export default function ProductsPage(){
+export function ProductsPage(){
     return(
-        <div className="h-full w-full bg-red-900">
-
-        </div>
+        <h1>Products Page New</h1>
     )
-
 }

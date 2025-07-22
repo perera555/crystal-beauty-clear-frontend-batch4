@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "../components/header";
-import ProductsPage from "./client/productsPage.jsx";
-
+import { ProductsPage } from "./client/productsPage";
 
 
 export default function HomePage() {
