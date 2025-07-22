@@ -8,7 +8,7 @@ export default function HomePage() {
         <div className="w-full h-screen max-h-screen ">
             <Header />
             <div className="w-full h-[calc(100vh-70px)] border-[5px]">
-                <Routes path="/">
+                <Routes path="/*">
                     <Route path="/" element={<h1>Home Page</h1>}/>
                     <Route path="/products" element={<ProductsPage/>} />
                     <Route path="/*" element={<h1>404 Not found</h1>} />
