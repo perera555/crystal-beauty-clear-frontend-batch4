@@ -5,9 +5,9 @@ import { ProductsPage } from "./client/productsPage";
 
 export default function HomePage() {
     return (
-        <div className="w-full h-screen max-h-screen ">
+        <div className="w-full h-screen ">
             <Header />
-            <div className="w-full h-[calc(100vh-70px)] border-[5px]">
+            <div className="w-full min-h-[calc(100vh-70px)] ">
                 <Routes path="/*">
                     <Route path="/" element={<h1>Home Page</h1>}/>
                     <Route path="/products" element={<ProductsPage/>} />
