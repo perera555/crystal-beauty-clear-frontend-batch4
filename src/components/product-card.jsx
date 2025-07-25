@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 return(
     
-        <Link className="w-[250px] m-4 h-[350px]  shadow-2xl ">
+        <Link to ={"/overview/"+product.productId} className="w-[250px] m-4 h-[350px]  shadow-2xl ">
             <img className="w-full h-[220px] object-cover "  src={product.images[0]} />
             <div className="h-[110px] w-full flex justify-center  flex-col px-4">
                 <p className="text-gray-400">{product.productId}</p>
