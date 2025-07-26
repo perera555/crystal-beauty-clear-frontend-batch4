@@ -19,7 +19,7 @@ export function ProductOverview() {
             axios.get(import.meta.env.VITE_BACKEND_URL + "/api/product/" + params.id).then(
                 (res) => {
                     console.log(res)
-                    setProduct(res.data);
+                    setProduct(res.data.product);
                     setStatus("loaded");
 
                 }
