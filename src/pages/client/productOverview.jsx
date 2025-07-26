@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import Loaded from "../../components/loaded";
 import { useEffect, useState } from "react";
 import ImageSlider from "../../components/imageSlider";
+import { addToCart } from "../../utils/cart";
 
 export function ProductOverview() {
     const params = useParams()
@@ -66,7 +67,10 @@ export function ProductOverview() {
                         <h2 className="text-3xl font-semibold text-center text-gray-500"> LKR:{product.price}</h2>
                         <p className=" text-xl text-center text-gray-500 mb-[40px]">{product.description}</p>
                         <div className="w-full flex justify-center mb-[40px]">
-                            <button className="bg-pink-800 border border-pink-800  cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300">Add to Cart</button>
+                            <button className="bg-pink-800 border border-pink-800  cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300" onClick={()=>{
+                                addToCart(product, 1);
+                                toast.success("product Added to cart");
+                            }}>Add to Cart</button>
                             <button className="bg-pink-800  border border-pink-800 cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300 ml-[20px]">Buy Now</button>
 
                         </div>
