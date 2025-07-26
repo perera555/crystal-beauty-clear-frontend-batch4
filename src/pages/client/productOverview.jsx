@@ -42,10 +42,34 @@ export function ProductOverview() {
                 <div className="w-full h-full flex ">
                     <div className="w-[50%] h-full  ">
                         <ImageSlider images={product.images} />
-                    
+
                     </div>
-                    <div className="w-[50%] h-full bg-blue-900 ">
-                        
+                    <div className="w-[50%] h-full  p-[40px] ">
+                        <h1 className="text-3xl font-bold text-center mb-[40px]">{product.name} {" | "}<span className="text-3xl mr-[20px] text-gray-500 ">{product.altName.join(" |")}</span></h1>
+
+
+                        <div className="w-full flex justify-center mb-[40px]">
+
+                            {
+                                product.labledPrice > product.price ? (
+                                    <>
+                                        <h2 className="text-3xl mr-[20px]  "> LKR:{product.price.toFixed(2)}</h2>
+                                        <h2 className="text-3xl line-through text-gray-500">{product.labledPrice.toFixed(2)}</h2>
+                                    </>
+                                ) : (
+
+                                    <h2 className="text-3xl font-semibold text-center">LKR:{product.price}</h2>
+                                )
+                            }
+
+                        </div>
+                        <h2 className="text-3xl font-semibold text-center text-gray-500"> LKR:{product.price}</h2>
+                        <p className=" text-xl text-center text-gray-500 mb-[40px]">{product.description}</p>
+                        <div className="w-full flex justify-center mb-[40px]">
+                            <button className="bg-pink-800 border border-pink-800  cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300">Add to Cart</button>
+                            <button className="bg-pink-800  border border-pink-800 cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300 ml-[20px]">Buy Now</button>
+
+                        </div>
                     </div>
 
                 </div>

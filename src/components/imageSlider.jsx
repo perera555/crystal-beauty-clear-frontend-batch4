@@ -15,7 +15,8 @@ export default function ImageSlider(props) {
                         images.map(
                             (image, index) => {
                                 return (
-                                    <img key={index} src={image} className="h-full aspect-square mx-[5px] cursor-pointer" onClick={()=>{
+                                    <img key={index} src={image} className="h-full aspect-square mx-[5px] cursor-pointer" onClick={
+                                        ()=>{
                                     setActiveImage(image);
                                     }} />
                                     
