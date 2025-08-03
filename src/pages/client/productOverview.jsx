@@ -55,7 +55,7 @@ export function ProductOverview() {
                                 product.labledPrice > product.price ? (
                                     <>
                                         <h2 className="text-3xl mr-[20px]  "> LKR:{product.price.toFixed(2)}</h2>
-                                        <h2 className="text-3xl line-through text-gray-500">{product.labledPrice.toFixed(2)}</h2>
+                                        <h2 className="text-3xl line-through text-gray-500">LKR:{product.labledPrice.toFixed(2)}</h2>
                                     </>
                                 ) : (
 
@@ -64,10 +64,10 @@ export function ProductOverview() {
                             }
 
                         </div>
-                        <h2 className="text-3xl font-semibold text-center text-gray-500"> LKR:{product.price}</h2>
+                        <h2 className="text-3xl font-semibold text-center text-gray-500"> LKR:{product.price.toFixed(2)}</h2>
                         <p className=" text-xl text-center text-gray-500 mb-[40px]">{product.description}</p>
                         <div className="w-full flex justify-center mb-[40px]">
-                            <button className="bg-pink-800 border border-pink-800  cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300" onClick={()=>{
+                            <button className="bg-pink-800 border border-pink-800  cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300" onClick={() => {
                                 addToCart(product, 1);
                                 toast.success("product Added to cart");
                             }}>Add to Cart</button>

@@ -1,21 +1,27 @@
 import { TbTrash } from "react-icons/tb";
-import getCart, { addToCart, getTotal, getTotalForLabledPrice, removeFromCart } from "../../utils/cart";
-import { use, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function cartPage() {
-    const [cartLoded, setCartLoaded] = useState(false);
+export default function checkoutPage() {
+    const location = useLocation();
+    const [cart, setCart] = useState(location.state.items);
+    const [cartRefreshed, setCartRefreshed] = useState(false);
     const navigate = useNavigate();
-
-    const [cart, setCart] = useState([]);
-    useEffect(() => {
-        if (cartLoded == false) {
-            const cartData = getCart();
-            setCart(cartData);
-            setCartLoaded(true);
-        }
-    }, [cartLoded])
-
+    function getTotal(){
+        let total = 0;
+        cart.forEach((item) => {
+            total += item.price * item.quantity;
+        } )  
+        return total
+    }
+    function getTotalForLabledPrice(){
+        let total = 0;
+        cart.forEach((item) => {
+            total += item.labledPrice * item.quantity;
+        } )  
+        return total
+    }
+  
     return (
         <div className="w-full h-full flex justify-center p-[40px] ">
             <div className="w-[800px]">
@@ -26,7 +32,8 @@ export default function cartPage() {
                             <div key={index} className=" w-full h-[140px] bg-white shadow-2xl my-[5px] flex justify-between items-center relative ">
                                 <button className="absolute right-[-50px] bg-red-500 w-[40px] h-[40px] rounded-full text-white flex justify-center items-center shadow cursor-pointer"
                                     onClick={() => {
-                                        removeFromCart(item.productId);
+                                        const newcart = cart.filter((product)=> product.productId !== item.productId);
+                                        setCart(newcart);
                                         setCartLoaded(false);
 
                                     }}>
@@ -43,18 +50,23 @@ export default function cartPage() {
                                 <div className="h-full w-[100px] flex  justify-center items-center">
                                     <button className="text-2xl w-[30px] h-[30px] bg-black text-white rounded-full flex justify-center items-center cursor-pointer mx-[5px]"
                                         onClick={() => {
-                                            addToCart(item, -1);
-                                            setCartLoaded(false);
-
+                                            const newcart = cart
+                                            newcart[index].quantity -= 1;
+                                            if (newcart[index].quantity <= 0) newcart[index].quantity = 1;
+                                            setCart(newcart);
+                                            setCartRefreshed(!cartRefreshed);
+                                           
                                         }
 
                                         }>-</button>
                                     <h1 className="text-xl font-bold">{item.quantity}</h1>
                                     <button className="text-2xl w-[30px] h-[30px] bg-black text-white rounded-full flex justify-center items-center cursor-pointer mx-[5px]"
                                         onClick={() => {
-                                            addToCart(item, 1)
-                                            setCartLoaded(false);
-
+                                           const newcart = cart
+                                             newcart[index].quantity += 1;
+                                            setCart(newcart);
+                                            setCartRefreshed(!cartRefreshed);
+                                            
                                         }}>+</button>
 
                                 </div>
