@@ -26,6 +26,7 @@ export function addToCart(product, qty) {
                 productId: product.productId,
                 name: product.name,
                 price: product.price,
+                labledPrice: product.labledPrice,
                 altName: product.altName,
                 image: product.images[0],
                 quantity: qty,
@@ -50,6 +51,7 @@ export function removeFromCart(productId) {
     localStorage.setItem("cart", JSON.stringify(cart));
     return cart;
 }
+
 export function getTotal() {
     let cart = getCart();
     let total = 0;

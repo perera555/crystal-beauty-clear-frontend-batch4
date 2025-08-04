@@ -16,6 +16,13 @@ export default function cartPage() {
         }
     }, [cartLoded])
 
+let totalaa = 0;
+cart.forEach((product) => {
+    console.log(`Price: ${product.price} (type: ${typeof product.price}), Quantity: ${product.quantity} (type: ${typeof product.quantity})`);
+    totalaa += product.price * product.quantity;
+    console.log(`totalaa: ${totalaa} (type: ${typeof totalaa})`);
+});
+
     return (
         <div className="w-full h-full flex justify-center p-[40px] ">
             <div className="w-[800px]">
@@ -69,16 +76,16 @@ export default function cartPage() {
                 }
                 <div className="w-full  flex justify-end">
                     <h1 className="w-[100px] text-xl text-end pr-2 ">Total</h1>
-                    <h1 className="w-[100px] text-xl text-end pr-2 ">{getTotalForLabledPrice().toFixed(2)}</h1>
+                    <h1 className="w-[100px] text-xl text-end pr-2 ">{getTotal().toFixed(2)}</h1>
                 </div>
                 <div className="w-full  flex justify-end">
                     <h1 className="w-[100px] text-xl text-end pr-2 ">Discount</h1>
-                    <h1 className="w-[100px] text-xl border-b-[2px] text-end pr-2 ">{(getTotalForLabledPrice() - getTotal()).toFixed(2)}</h1>
+                    <h1 className="w-[100px] text-xl border-b-[2px] text-end pr-2 ">{(getTotalForLabledPrice().toFixed(2))}</h1>
                 </div>
 
                 <div className="w-full  flex justify-end">
                     <h1 className="w-[100px] text-xl text-end pr-2 ">Net total</h1>
-                    <h1 className="w-[100px] text-xl border-b-[4px] border-double text-end pr-2 ">{getTotal().toFixed(2)}</h1>
+                    <h1 className="w-[100px] text-xl border-b-[4px] border-double text-end pr-2 ">{(getTotalForLabledPrice() - getTotal()).toFixed(2)}</h1>
                 </div>
                 <div className="w-full  flex justify-end">
                     <button className=" w-[170px] bg-pink-400 text-xl text-center shadow pr-2  text-white h-[40px] px-4 py-2 rounded-lg mt-4 cursor-pointer" onClick={() => {

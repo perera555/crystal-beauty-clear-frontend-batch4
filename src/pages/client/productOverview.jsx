@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Loaded from "../../components/loaded";
 import { useEffect, useState } from "react";
 import ImageSlider from "../../components/imageSlider";
@@ -14,6 +14,7 @@ export function ProductOverview() {
 
     const [product, setProduct] = useState(null);
     const [status, setStatus] = useState("loading");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (status == "loading") {
@@ -71,7 +72,24 @@ export function ProductOverview() {
                                 addToCart(product, 1);
                                 toast.success("product Added to cart");
                             }}>Add to Cart</button>
-                            <button className="bg-pink-800  border border-pink-800 cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300 ml-[20px]">Buy Now</button>
+                            <button
+                                onClick={() => {
+                                    navigate("/checkout", {
+                                        state: {
+                                            items: [{
+                                                productId: product.productId,
+                                                name: product.name,
+                                                price: product.price,
+                                                labledPrice: product.labledPrice,
+                                                altName: product.altName,
+                                                image: product.images[0],
+                                                quantity: 1
+                                            }]
+                                        }
+                                    });
+
+                                }}
+                                className="bg-pink-800  border border-pink-800 cursor-pointer text-white px-[20px] py-[10px] rounded-lg hover:bg-white hover:text-pink-800 transition-all duration-300 ml-[20px]">Buy Now</button>
 
                         </div>
                     </div>

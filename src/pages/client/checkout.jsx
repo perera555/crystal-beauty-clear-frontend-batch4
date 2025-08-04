@@ -1,27 +1,67 @@
 import { TbTrash } from "react-icons/tb";
-import {  useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 export default function checkoutPage() {
     const location = useLocation();
     const [cart, setCart] = useState(location.state.items);
     const [cartRefreshed, setCartRefreshed] = useState(false);
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
-    function getTotal(){
+
+    function placeOrder() {
+        const orderData = {
+            name: name,
+            address: address,
+            phoneNumber: phoneNumber,
+            billItems: []
+        }
+        for (let i = 0; i < cart.length; i++) {
+            orderData.billItems[i] = {
+
+
+
+                productId: cart[i].productId,
+                quantity: cart[i].quantity,
+
+            }
+        }
+        const token = localStorage.getItem("token");
+        axios.post(import.meta.env.VITE_BACKEND_URL + "/api/order", orderData, {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        }).then(() => {
+            toast.success("Order placed successfully");
+            navigate("/");
+        }).catch((error) => {
+            console.error(error);
+            toast.error("Failed to place order");
+        });
+
+
+    }
+
+    function getTotal() {
         let total = 0;
         cart.forEach((item) => {
             total += item.price * item.quantity;
-        } )  
+        })
         return total
     }
-    function getTotalForLabledPrice(){
+    function getTotalForLabledPrice() {
         let total = 0;
         cart.forEach((item) => {
             total += item.labledPrice * item.quantity;
-        } )  
+        })
         return total
     }
-  
+
     return (
         <div className="w-full h-full flex justify-center p-[40px] ">
             <div className="w-[800px]">
@@ -32,7 +72,7 @@ export default function checkoutPage() {
                             <div key={index} className=" w-full h-[140px] bg-white shadow-2xl my-[5px] flex justify-between items-center relative ">
                                 <button className="absolute right-[-50px] bg-red-500 w-[40px] h-[40px] rounded-full text-white flex justify-center items-center shadow cursor-pointer"
                                     onClick={() => {
-                                        const newcart = cart.filter((product)=> product.productId !== item.productId);
+                                        const newcart = cart.filter((product) => product.productId !== item.productId);
                                         setCart(newcart);
                                         setCartLoaded(false);
 
@@ -55,18 +95,18 @@ export default function checkoutPage() {
                                             if (newcart[index].quantity <= 0) newcart[index].quantity = 1;
                                             setCart(newcart);
                                             setCartRefreshed(!cartRefreshed);
-                                           
+
                                         }
 
                                         }>-</button>
                                     <h1 className="text-xl font-bold">{item.quantity}</h1>
                                     <button className="text-2xl w-[30px] h-[30px] bg-black text-white rounded-full flex justify-center items-center cursor-pointer mx-[5px]"
                                         onClick={() => {
-                                           const newcart = cart
-                                             newcart[index].quantity += 1;
+                                            const newcart = cart
+                                            newcart[index].quantity += 1;
                                             setCart(newcart);
                                             setCartRefreshed(!cartRefreshed);
-                                            
+
                                         }}>+</button>
 
                                 </div>
@@ -92,21 +132,44 @@ export default function checkoutPage() {
                     <h1 className="w-[100px] text-xl text-end pr-2 ">Net total</h1>
                     <h1 className="w-[100px] text-xl border-b-[4px] border-double text-end pr-2 ">{getTotal().toFixed(2)}</h1>
                 </div>
+
                 <div className="w-full  flex justify-end">
-                    <button className=" w-[170px] bg-pink-400 text-xl text-center shadow pr-2  text-white h-[40px] px-4 py-2 rounded-lg mt-4 cursor-pointer" onClick={() => {
-                        navigate("/checkout",
-                            {
-                                state: {
-                                    items: cart,
-                                }
-                            }
-                        );
-                    }}>  Checkout</button>
+                    <h1 className="w-[100px] text-xl text-end pr-2">Name:</h1>
+                    <input
+                        className="w-[200px] text-xl border-b-[2px] text-end pr-2"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                 </div>
 
-
-
+                <div className="w-full  flex justify-end">
+                    <h1 className="w-[100px] text-xl text-end pr-2">Address:</h1>
+                    <input
+                        className="w-[200px] text-xl border-b-[2px] text-end pr-2"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                </div>
+                <div className="w-full  flex justify-end">
+                    <h1 className="w-[100px] text-xl text-end pr-2">Phone:</h1>
+                    <input
+                        className="w-[200px] text-xl border-b-[2px] text-end pr-2"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
             </div>
+            <div className="w-full  flex justify-end">
+                <button className=" w-[170px] bg-pink-400 text-xl text-center shadow pr-2  text-white h-[40px] px-4 py-2 rounded-lg mt-4 cursor-pointer"
+                    onClick={placeOrder}
+
+
+
+                > Place Order</button>
+            </div>
+
+
+
         </div>
+        </div >
     );
 }
