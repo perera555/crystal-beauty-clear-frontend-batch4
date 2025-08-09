@@ -6,11 +6,13 @@ import Testing from "./pages/admin/testing";
 
 import HomePage from "./pages/homePage";
 import RegisterPage from "./pages/client/register";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
 
 
   return (
+    <GoogleOAuthProvider clientId="32494288967-sm65ubrpk5iq64l6vaugateq0eimhfnu.apps.googleusercontent.com">
     <BrowserRouter>
       <Toaster position="top-right" />
       <Routes path="/*">
@@ -23,6 +25,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </GoogleOAuthProvider>
 
   );
 }
