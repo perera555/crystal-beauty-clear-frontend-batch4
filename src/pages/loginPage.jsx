@@ -11,11 +11,32 @@ export default function LoginPage() {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const loginWithGoogle = useGoogleLogin(
-        (res)=>{
-            console.log(res)
-        }
-    )
+    const loginWithGoogle = useGoogleLogin({
+        
+        onSuccess: (response) => {
+            console.log("Google login response:", response);
+            setLoading(true);
+            axios
+                .post(import.meta.env.VITE_BACKEND_URL + "/api/user/google", {
+                    accessToken: response.access_token, // fixed variable name
+                })
+                .then((res) => {
+                    console.log("Login Successful", res.data);
+                    toast.success("Login Successful");
+                    localStorage.setItem("token", res.data.token);
+                    const user = res.data.user;
+                    navigate(user.role === "admin" ? "/admin" : "/");
+                })
+                .catch((err) => {
+                    console.error("Login error:", err);
+                    toast.error("Login failed");
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        },
+    });
+
 
     function handleLogin() {
         console.log("Email", email)
@@ -75,8 +96,13 @@ export default function LoginPage() {
 
                     </button>
                     <button className=" w-[400px] h-[50px] mt-[20px] bg-green-500 text-white rounded-xl cursor-pointer flex justify-center items-center" onClick={loginWithGoogle}>
-                        <GrGoogle className="mr-[10px]"/>
-                        Login with Google
+
+
+                        <GrGoogle className="mr-[10px]" />
+                        {
+                            loading ? "Loading...." : "Login with Google"
+                        }
+
                     </button>
 
                     <p className="text-gray-600 text-center m-[10px]">
