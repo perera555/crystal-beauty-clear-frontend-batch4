@@ -5,27 +5,39 @@ import { Toaster } from "react-hot-toast";
 import Testing from "./pages/admin/testing";
 
 import HomePage from "./pages/homePage";
+
 import RegisterPage from "./pages/client/register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Responsivetesting from "./pages/client/test";
+import AboutPage from "./pages/aboutPage";
+import ContactPage from "./pages/contactPage";
+import { ProductsPage } from "./pages/client/productsPage";
+
 
 function App() {
 
 
   return (
     <GoogleOAuthProvider clientId="32494288967-sm65ubrpk5iq64l6vaugateq0eimhfnu.apps.googleusercontent.com">
-    <BrowserRouter>
-      <Toaster position="top-right" />
-      <Routes path="/*">
-        <Route path="/admin/*" element={<AdminPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/testing" element={<Testing />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/r" element={<Responsivetesting />} />
-        <Route path="/*" element={<HomePage />} />
+      <BrowserRouter>
+        <div>
+          <Toaster position="top-right" />
+          <Routes path="/*">
+            <Route path="/admin/*" element={<AdminPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/testing" element={<Testing />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/r" element={<Responsivetesting />} />
+            <Route element={<MainLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path='/products' element={<ProductsPage />} />
+              <Route path='/about' element={<AboutPage/>} />
+              <Route path='/contact' element={<ContactPage />} />
+            </Route>
 
-      </Routes>
-    </BrowserRouter>
+          </Routes>
+        </div>
+      </BrowserRouter>
     </GoogleOAuthProvider>
 
   );

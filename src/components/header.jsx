@@ -18,6 +18,7 @@ export default function Header() {
                 <Link to="/products">Products</Link>
                 <Link to="/contact">Contact us</Link>
                 <Link to="/reviews">Reviews</Link>
+                <Link to="/reviews">About</Link>
                 <Link to="/cart" className="absolute right-[30px] text-3xl"><BsCart4 /></Link>
 
             </div>
@@ -30,6 +31,7 @@ export default function Header() {
                             <Link to="/products" className="text-xl text-accent my-4">Products</Link>
                             <Link to="/contact" className="text-xl text-accent my-4">Contact us</Link>
                             <Link to="/reviews" className="text-xl text-accent my-4">Reviews</Link>
+                            <Link to="/reviews" className="text-xl text-accent my-4">About</Link>
                             <Link to="/cart" className="text-xl text-accent my-4">cart</Link>
                           
 
